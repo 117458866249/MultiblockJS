@@ -1,0 +1,49 @@
+{
+    "variants": {
+        "facing=north,formed=true,working=false": {
+            "model": "examplemod:block/test_controller_formed"
+        },
+        "facing=east,formed=true,working=false": {
+            "model": "examplemod:block/test_controller_formed",
+            "y": 90
+        },
+        "facing=south,formed=true,working=false": {
+            "model": "examplemod:block/test_controller_formed",
+            "y": 180
+        },
+        "facing=west,formed=true,working=false": {
+            "model": "examplemod:block/test_controller_formed",
+            "y": 270
+        },
+        "facing=north,formed=true,working=true": {
+            "model": "examplemod:block/test_controller_working"
+        },
+        "facing=east,formed=true,working=true": {
+            "model": "examplemod:block/test_controller_working",
+            "y": 90
+        },
+        "facing=south,formed=true,working=true": {
+            "model": "examplemod:block/test_controller_working",
+            "y": 180
+        },
+        "facing=west,formed=true,working=true": {
+            "model": "examplemod:block/test_controller_working",
+            "y": 270
+        },
+        "facing=north,formed=false": {
+            "model": "examplemod:block/test_controller"
+        },
+        "facing=east,formed=false": {
+            "model": "examplemod:block/test_controller",
+            "y": 90
+        },
+        "facing=south,formed=false": {
+            "model": "examplemod:block/test_controller",
+            "y": 180
+        },
+        "facing=west,formed=false": {
+            "model": "examplemod:block/test_controller",
+            "y": 270
+        }
+    }
+}

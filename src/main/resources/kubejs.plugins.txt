@@ -1,0 +1,1 @@
+com.qwq117458866249.multiblockjs.plugin.MultiblockJsPlugin
