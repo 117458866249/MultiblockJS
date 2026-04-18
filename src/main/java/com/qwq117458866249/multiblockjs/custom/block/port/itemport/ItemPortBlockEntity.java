@@ -9,23 +9,29 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.items.ItemStackHandler;
 
-public class ItemPortBlockEntity extends BaseContainerBlockEntity implements MultiblockPartBE {
-    private final int size;
-    private NonNullList<ItemStack> items;
+public class ItemPortBlockEntity extends RandomizableContainerBlockEntity implements MultiblockPartBE, Container {
+    private final int vSize;
+    public ItemStackHandler vInventory;
 
     public ItemPortBlockEntity(BlockPos pos, BlockState blockState) {
         super(BlockEntityRegister.ITEM_PORT_ENTITY.get(), pos, blockState);
-        this.size = MultiblockJS.ITEM_SIZES.get(blockState.getBlock());
-        items = NonNullList.withSize(size, ItemStack.EMPTY);
+        this.vSize = MultiblockJS.ITEM_SIZES.get(blockState.getBlock());
+        this.vInventory = new ItemStackHandler(vSize){
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
+        };
     }
 
     private BlockPos vControllerPos = new BlockPos(0,0,0);
@@ -49,25 +55,6 @@ public class ItemPortBlockEntity extends BaseContainerBlockEntity implements Mul
     }
 
     // Item
-    @Override
-    public NonNullList<ItemStack> getItems() {
-        return items;
-    }
-
-    @Override
-    public void setItems(NonNullList<ItemStack> items) {
-        this.items = items;
-    }
-
-    @Override
-    protected AbstractContainerMenu createMenu(int i, Inventory inventory) {
-        return null;
-    }
-
-    @Override
-    public int getContainerSize() {
-        return size;
-    }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
@@ -75,7 +62,7 @@ public class ItemPortBlockEntity extends BaseContainerBlockEntity implements Mul
         tag.putInt("xc",vControllerPos.getX());
         tag.putInt("yc",vControllerPos.getY());
         tag.putInt("zc",vControllerPos.getZ());
-        ContainerHelper.saveAllItems(tag, items, registries);
+        tag.put("Inventory", vInventory.serializeNBT(registries));
     }
 
     @Override
@@ -84,22 +71,57 @@ public class ItemPortBlockEntity extends BaseContainerBlockEntity implements Mul
     }
 
     @Override
+    public NonNullList<ItemStack> getItems() {
+        NonNullList<ItemStack> vReturn = NonNullList.withSize(vSize,ItemStack.EMPTY);
+        for (int i = 0; i < vSize; i++) {
+            try {
+                vReturn.set(i, vInventory.getStackInSlot(i));
+            } catch (Exception ignored){}
+        }        return vReturn;
+    }
+
+    @Override
+    protected void setItems(NonNullList<ItemStack> nonNullList) {
+        for (int i = 0;i < nonNullList.size();i++){
+            try {
+                setItem(i,nonNullList.get(i));
+            } catch (Exception ignored) {}
+        }
+    }
+
+    @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
-        items = NonNullList.withSize(size, ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(tag, items, registries);
         vControllerPos = new BlockPos(
                 tag.getInt("xc"),
                 tag.getInt("yc"),
                 tag.getInt("zc")
         );
+        vInventory.deserializeNBT(registries,tag.getCompound("Inventory"));
     }
 
     public void drops() {
-        SimpleContainer inventory = new SimpleContainer(size);
-        for (int i = 0;i<size;i++){
-            inventory.setItem(i,getItem(i));
+        SimpleContainer inventory = new SimpleContainer(vSize);
+        for (int i = 0; i< vSize; i++){
+            inventory.setItem(i,vInventory.getStackInSlot(i));
         }
         Containers.dropContents(this.level,this.worldPosition,inventory);
+    }
+
+    public int getContainerSize(){
+        return vSize;
+    }
+
+    public ItemStack getItem(int pIndex){
+        return vInventory.getStackInSlot(pIndex);
+    }
+
+    public void setItem(int pIndex,ItemStack pStack){
+        vInventory.setStackInSlot(pIndex, pStack);
+    }
+
+    @Override
+    protected AbstractContainerMenu createMenu(int i, Inventory inventory) {
+        return null;
     }
 }

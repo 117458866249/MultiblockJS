@@ -1,10 +1,8 @@
 package com.qwq117458866249.multiblockjs.custom.block.controller;
 
-import com.qwq117458866249.multiblockjs.MultiblockJS;
 import com.qwq117458866249.multiblockjs.Utils;
 import com.qwq117458866249.multiblockjs.custom.block.port.itemport.ItemPortBlockEntity;
 import com.qwq117458866249.multiblockjs.register.BlockEntityRegister;
-import com.simibubi.create.AllSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -187,6 +185,9 @@ public class ControllerBlockEntity extends BlockEntity {
                         }
                         case "su" -> {
 
+                        }
+                        case "command" -> {
+                            Utils.runCommand((String) pRequirement[5],level,Utils.getRelativePos(pPos,vPortPos[0], vPortPos[1], vPortPos[2]));
                         }
                     }
                 }

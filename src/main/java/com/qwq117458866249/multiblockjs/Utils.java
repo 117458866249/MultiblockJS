@@ -4,10 +4,14 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.qwq117458866249.multiblockjs.custom.block.MultiblockPartBE;
 import com.qwq117458866249.multiblockjs.custom.block.MultiblockPartBlock;
 import com.qwq117458866249.multiblockjs.custom.block.partblock.PartBlockEntity;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.blocks.BlockStateParser;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -20,8 +24,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Utils {
     public static BlockPos getRelativePos(BlockPos pos, int x, int y, int z){
@@ -105,5 +112,46 @@ public class Utils {
             return result.blockState();
         } catch (CommandSyntaxException ignored) {}
         return Blocks.AIR.defaultBlockState();
+    }
+
+    public static final HolderLookup.Provider provider = new HolderLookup.Provider() {
+        @Override
+        public Stream<ResourceKey<? extends Registry<?>>> listRegistries() {
+            return Stream.empty();
+        }
+
+        @Override
+        public <T> Optional<HolderLookup.RegistryLookup<T>> lookup(ResourceKey<? extends Registry<? extends T>> resourceKey) {
+            return Optional.empty();
+        }
+    };
+
+    public static void runCommand(String command, Level level, BlockPos pos){
+        CommandSourceStack src = Objects.requireNonNull(
+                level.getServer()
+        ).createCommandSourceStack().withSuppressedOutput();
+
+        level.getServer().getCommands().performPrefixedCommand(
+                src,
+                "execute positioned "
+                        +
+                        pos.getX()
+                        +
+                        " "
+                        +
+                        pos.getY()
+                        +
+                        " "
+                        +
+                        pos.getZ()
+                        +
+                        " in "
+                        +
+                        level.dimensionType().effectsLocation()
+                        +
+                        " run "
+                        +
+                        command
+        );
     }
 }
