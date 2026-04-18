@@ -1,6 +1,7 @@
 package com.qwq117458866249.multiblockjs.custom.event.recipe;
 
 import com.qwq117458866249.multiblockjs.custom.block.controller.ControllerBlockEntity;
+import com.qwq117458866249.multiblockjs.custom.event.any.ReadingRecipes;
 import dev.latvian.mods.kubejs.event.KubeEvent;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -13,6 +14,7 @@ public class RecipeKubeEvent implements KubeEvent {
 
     public RecipeKubeEvent(){
         ControllerBlockEntity.recipes = recipes;
+        ReadingRecipes.recipes = recipes;
         recipes = new ArrayList<>();
     }
 
