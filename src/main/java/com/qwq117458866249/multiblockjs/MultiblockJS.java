@@ -4,9 +4,8 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.qwq117458866249.multiblockjs.custom.block.controller.ControllerBlock;
 import com.qwq117458866249.multiblockjs.custom.block.custompartblock.CustomPartBlock;
+import com.qwq117458866249.multiblockjs.custom.block.port.fluidport.FluidPortBlock;
 import com.qwq117458866249.multiblockjs.custom.block.port.itemport.ItemPortBlock;
-import com.qwq117458866249.multiblockjs.custom.event.MjsKubeEvents;
-import com.qwq117458866249.multiblockjs.custom.event.recipe.RecipeKubeEvent;
 import com.qwq117458866249.multiblockjs.register.BlockEntityRegister;
 import com.qwq117458866249.multiblockjs.register.BlockRegister;
 import net.minecraft.resources.ResourceLocation;
@@ -22,8 +21,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 @Mod(MultiblockJS.MOD_ID)
 public class MultiblockJS {
@@ -32,9 +30,11 @@ public class MultiblockJS {
 
     public static final BiMap<ResourceLocation, ControllerBlock> CONTROLLER_BLOCKS = HashBiMap.create();
     public static final BiMap<ResourceLocation, ItemPortBlock> ITEM_PORTS = HashBiMap.create();
+    public static final BiMap<ResourceLocation, FluidPortBlock> FLUID_PORTS = HashBiMap.create();
     public static final BiMap<ResourceLocation, CustomPartBlock> CUSTOM_PART_PORTS = HashBiMap.create();
 
-    public static final BiMap<Block, Integer> ITEM_SIZES = HashBiMap.create();
+    public static final HashMap<Block, Integer> ITEM_SIZES = new HashMap<>();
+    public static final HashMap<Block, Integer> FLUID_SIZES = new HashMap<>();
 
     public MultiblockJS(IEventBus modEventBus, ModContainer modContainer) {
         NeoForge.EVENT_BUS.register(this);
@@ -46,7 +46,7 @@ public class MultiblockJS {
     public void onServerStarting(ServerStartingEvent event) {
     }
 
-    public static ResourceLocation modRL(String pPath){
-        return ResourceLocation.fromNamespaceAndPath("multiblockjs",pPath);
+    public static ResourceLocation modRL(String pPath) {
+        return ResourceLocation.fromNamespaceAndPath("multiblockjs", pPath);
     }
 }

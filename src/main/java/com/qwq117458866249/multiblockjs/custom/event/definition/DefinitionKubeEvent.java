@@ -21,37 +21,37 @@ import java.util.ArrayList;
 public class DefinitionKubeEvent implements KubeEvent {
     public static ArrayList structures = new ArrayList<>();
 
-    public DefinitionKubeEvent(PlayerInteractEvent.RightClickBlock event){
+    public DefinitionKubeEvent(PlayerInteractEvent.RightClickBlock event) {
         UnFormMultiBlock.structures = structures;
-        if (event.getLevel().isClientSide()){
+        if (event.getLevel().isClientSide()) {
             structures = new ArrayList<>();
             return;
         }
 
         if (
-                !event.getEntity().isShiftKeyDown()||
-                        !event.getItemStack().is(Items.AIR)||
+                !event.getEntity().isShiftKeyDown() ||
+                        !event.getItemStack().is(Items.AIR) ||
                         event.getHand().equals(InteractionHand.OFF_HAND)
-        ){
+        ) {
             structures = new ArrayList<>();
             return;
         }
 
-        if(
+        if (
                 event.getLevel().getBlockEntity(event.getPos()) instanceof ControllerBlockEntity pEntity &&
                         event.getLevel().getBlockState(event.getPos()).getBlock() instanceof ControllerBlock pBlock
-        ){
+        ) {
             final MutableComponent[] vFailSaid = {Component.literal("§7§oYou haven't built any multiblocks that meet the requirements! Here are the coordinates you might have built:\n")};
 
             structures.forEach(p -> {
                 Object[] pStructure = (Object[]) p;
-                if (BuiltInRegistries.BLOCK.wrapAsHolder(pBlock).getRegisteredName().equals(pStructure[1])){
+                if (BuiltInRegistries.BLOCK.wrapAsHolder(pBlock).getRegisteredName().equals(pStructure[1])) {
                     Object[][] pParts = (Object[][]) pStructure[2];
                     boolean vIsForm = true;
                     int[] vPos;
                     MutableComponent vFailed = Component.literal("");
 
-                    for (Object[] pPart:pParts){
+                    for (Object[] pPart : pParts) {
                         vPos = Utils.getDirectionPos(new int[]{
                                 ((Number) pPart[0]).intValue(),
                                 ((Number) pPart[1]).intValue(),
@@ -60,25 +60,25 @@ public class DefinitionKubeEvent implements KubeEvent {
 
                         if (
                                 !BuiltInRegistries.BLOCK.wrapAsHolder(event.getLevel().getBlockState(
-                                        Utils.getRelativePos(event.getPos(),vPos[0],vPos[1],vPos[2])
+                                        Utils.getRelativePos(event.getPos(), vPos[0], vPos[1], vPos[2])
                                 ).getBlock()).getRegisteredName().equals(pPart[3])
-                        ){
+                        ) {
                             vIsForm = false;
                             if (!vFailSaid[0].equals(Component.literal("1174ovo"))) {
                                 if (vFailed.equals(Component.literal(""))) {
                                     vFailed = vFailed
                                             .append(
                                                     "\n§7"
-                                                    + Component.translatable("multiblockjs." + pStructure[0]).getString()
-                                                    + ":\n§a§l"
-                                                    + Component.translatable(BuiltInRegistries.BLOCK.get(ResourceLocation.parse((String) pPart[3])).getDescriptionId()).getString()
-                                                    + " §f[§4"
-                                                    + Utils.getRelativePos(event.getPos(), vPos[0], vPos[1], vPos[2]).getX()
-                                                    + " ,§c"
-                                                    + Utils.getRelativePos(event.getPos(), vPos[0], vPos[1], vPos[2]).getY()
-                                                    + " ,§6"
-                                                    + Utils.getRelativePos(event.getPos(), vPos[0], vPos[1], vPos[2]).getZ()
-                                                    + "§f]"
+                                                            + Component.translatable("multiblockjs." + pStructure[0]).getString()
+                                                            + ":\n§a§l"
+                                                            + Component.translatable(BuiltInRegistries.BLOCK.get(ResourceLocation.parse((String) pPart[3])).getDescriptionId()).getString()
+                                                            + " §f[§4"
+                                                            + Utils.getRelativePos(event.getPos(), vPos[0], vPos[1], vPos[2]).getX()
+                                                            + " ,§c"
+                                                            + Utils.getRelativePos(event.getPos(), vPos[0], vPos[1], vPos[2]).getY()
+                                                            + " ,§6"
+                                                            + Utils.getRelativePos(event.getPos(), vPos[0], vPos[1], vPos[2]).getZ()
+                                                            + "§f]"
                                             );
                                 } else {
                                     vFailed = vFailed.append(
@@ -91,16 +91,16 @@ public class DefinitionKubeEvent implements KubeEvent {
                                                     + " ,§6"
                                                     + Utils.getRelativePos(event.getPos(), vPos[0], vPos[1], vPos[2]).getZ()
                                                     + "§f]"
-                                            );
+                                    );
                                 }
                             }
                         }
                     }
 
-                    if (vIsForm){
+                    if (vIsForm) {
                         pEntity.vStructure = (String) pStructure[0];
-                        pBlock.form(event.getLevel().getBlockState(event.getPos()),event.getLevel(),event.getPos());
-                        for (Object[] pPart:pParts){
+                        pBlock.form(event.getLevel().getBlockState(event.getPos()), event.getLevel(), event.getPos());
+                        for (Object[] pPart : pParts) {
                             vPos = Utils.getDirectionPos(new int[]{
                                     ((Number) pPart[0]).intValue(),
                                     ((Number) pPart[1]).intValue(),
@@ -108,7 +108,7 @@ public class DefinitionKubeEvent implements KubeEvent {
                             }, event.getLevel().getBlockState(event.getPos()).getValue(BlockStateProperties.HORIZONTAL_FACING));
 
                             Utils.formBlock(
-                                    Utils.getRelativePos(event.getPos(),vPos[0],vPos[1],vPos[2]),
+                                    Utils.getRelativePos(event.getPos(), vPos[0], vPos[1], vPos[2]),
                                     event.getPos(),
                                     event.getLevel()
                             );
@@ -123,7 +123,7 @@ public class DefinitionKubeEvent implements KubeEvent {
             });
             if (
                     (!vFailSaid[0].equals(Component.literal("1174ovo")))
-                            &&(!event.getLevel().getBlockState(event.getPos()).getValue(MultiblockPartBlock.FORMED))
+                            && (!event.getLevel().getBlockState(event.getPos()).getValue(MultiblockPartBlock.FORMED))
             ) {
                 event.getEntity().sendSystemMessage(vFailSaid[0]);
             }
@@ -131,16 +131,16 @@ public class DefinitionKubeEvent implements KubeEvent {
         structures = new ArrayList<>();
     }
 
-    public DefinitionKubeEvent(){
+    public DefinitionKubeEvent() {
         structures = new ArrayList<>();
         UnFormMultiBlock.structures = structures;
     }
 
-    public void addStructure(String pId, String pController, Object[]... pParts){
-        if (pParts == null){
+    public void addStructure(String pId, String pController, Object[]... pParts) {
+        if (pParts == null) {
             MultiblockJS.LOGGER.error("We didn't find your multiblock part!");
             return;
         }
-        structures.add(new Object[]{pId,pController,pParts});
+        structures.add(new Object[]{pId, pController, pParts});
     }
 }

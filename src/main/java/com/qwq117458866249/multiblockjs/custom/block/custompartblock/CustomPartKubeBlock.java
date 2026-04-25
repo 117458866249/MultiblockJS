@@ -13,7 +13,7 @@ public class CustomPartKubeBlock extends BlockBuilder {
     @Override
     public Block createObject() {
         CustomPartBlock vBlock = new CustomPartBlock(this.createProperties());
-        MultiblockJS.CUSTOM_PART_PORTS.put(this.id,vBlock);
+        MultiblockJS.CUSTOM_PART_PORTS.put(this.id, vBlock);
         return vBlock;
     }
 }

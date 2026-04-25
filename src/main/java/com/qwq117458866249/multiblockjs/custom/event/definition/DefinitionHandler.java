@@ -21,7 +21,7 @@ import java.util.Map;
 public class DefinitionHandler {
 
     @SubscribeEvent
-    public static void buildStructure(PlayerInteractEvent.RightClickBlock event){
+    public static void buildStructure(PlayerInteractEvent.RightClickBlock event) {
         if (event.getLevel() instanceof Level) {
             MjsKubeEvents.DEFINITION.post(new DefinitionKubeEvent(event)).applyCancel(event);
         }

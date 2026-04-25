@@ -10,11 +10,16 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 @EventBusSubscriber(modid = MultiblockJS.MOD_ID)
 public class HandlerRegister {
     @SubscribeEvent
-    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+    public static void registerCapabilitiesItem(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 BlockEntityRegister.ITEM_PORT_ENTITY.get(),
                 (entity, side) -> entity.vInventory
+        );
+        event.registerBlockEntity(
+                Capabilities.FluidHandler.BLOCK,
+                BlockEntityRegister.FLUID_PORT_ENTITY.get(),
+                (blockEntity, side) -> blockEntity.getFluidHandler()
         );
     }
 }

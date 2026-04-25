@@ -1,6 +1,7 @@
 package com.qwq117458866249.multiblockjs.custom.block.controller;
 
 import com.mojang.serialization.MapCodec;
+import com.qwq117458866249.multiblockjs.MultiblockJS;
 import com.qwq117458866249.multiblockjs.custom.block.MultiblockPartBlock;
 import com.qwq117458866249.multiblockjs.register.BlockEntityRegister;
 import net.minecraft.core.BlockPos;
@@ -23,10 +24,17 @@ import org.jetbrains.annotations.Nullable;
 public class ControllerBlock extends MultiblockPartBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WORKING = BooleanProperty.create("working");
+    public RenderShape shape = RenderShape.MODEL;
 
     public ControllerBlock(Properties properties) {
         super(properties);
-        registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(FORMED, false).setValue(WORKING,false));
+        registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(FORMED, false).setValue(WORKING, false));
+    }
+
+    public ControllerBlock(Properties properties, RenderShape pShape) {
+        super(properties);
+        registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(FORMED, false).setValue(WORKING, false));
+        this.shape = pShape;
     }
 
     @Override
@@ -36,7 +44,7 @@ public class ControllerBlock extends MultiblockPartBlock {
 
     @Override
     public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
+        return this.shape;
     }
 
     @javax.annotation.Nullable
@@ -48,7 +56,7 @@ public class ControllerBlock extends MultiblockPartBlock {
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new ControllerBlockEntity(blockPos,blockState);
+        return new ControllerBlockEntity(blockPos, blockState);
     }
 
     @Override
@@ -63,6 +71,6 @@ public class ControllerBlock extends MultiblockPartBlock {
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         Direction playerDirection = context.getHorizontalDirection();
         Direction facing = playerDirection.getOpposite();
-        return this.defaultBlockState().setValue(FACING, facing).setValue(FORMED, false).setValue(WORKING,false);
+        return this.defaultBlockState().setValue(FACING, facing).setValue(FORMED, false).setValue(WORKING, false);
     }
 }

@@ -26,7 +26,7 @@ public class ItemPortBlockEntity extends RandomizableContainerBlockEntity implem
     public ItemPortBlockEntity(BlockPos pos, BlockState blockState) {
         super(BlockEntityRegister.ITEM_PORT_ENTITY.get(), pos, blockState);
         this.vSize = MultiblockJS.ITEM_SIZES.get(blockState.getBlock());
-        this.vInventory = new ItemStackHandler(vSize){
+        this.vInventory = new ItemStackHandler(vSize) {
             @Override
             protected void onContentsChanged(int slot) {
                 setChanged();
@@ -34,7 +34,7 @@ public class ItemPortBlockEntity extends RandomizableContainerBlockEntity implem
         };
     }
 
-    private BlockPos vControllerPos = new BlockPos(0,0,0);
+    private BlockPos vControllerPos = new BlockPos(0, 0, 0);
 
     public BlockPos getControllerPos() {
         return vControllerPos;
@@ -47,7 +47,7 @@ public class ItemPortBlockEntity extends RandomizableContainerBlockEntity implem
 
     @Override
     public void unFormEntity() {
-        ((MultiblockPartBlock)getLevel().getBlockState(getBlockPos()).getBlock()).unForm(
+        ((MultiblockPartBlock) getLevel().getBlockState(getBlockPos()).getBlock()).unForm(
                 getLevel().getBlockState(getBlockPos()),
                 getLevel(),
                 getBlockPos()
@@ -59,9 +59,9 @@ public class ItemPortBlockEntity extends RandomizableContainerBlockEntity implem
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
-        tag.putInt("xc",vControllerPos.getX());
-        tag.putInt("yc",vControllerPos.getY());
-        tag.putInt("zc",vControllerPos.getZ());
+        tag.putInt("xc", vControllerPos.getX());
+        tag.putInt("yc", vControllerPos.getY());
+        tag.putInt("zc", vControllerPos.getZ());
         tag.put("Inventory", vInventory.serializeNBT(registries));
     }
 
@@ -72,20 +72,23 @@ public class ItemPortBlockEntity extends RandomizableContainerBlockEntity implem
 
     @Override
     public NonNullList<ItemStack> getItems() {
-        NonNullList<ItemStack> vReturn = NonNullList.withSize(vSize,ItemStack.EMPTY);
+        NonNullList<ItemStack> vReturn = NonNullList.withSize(vSize, ItemStack.EMPTY);
         for (int i = 0; i < vSize; i++) {
             try {
                 vReturn.set(i, vInventory.getStackInSlot(i));
-            } catch (Exception ignored){}
-        }        return vReturn;
+            } catch (Exception ignored) {
+            }
+        }
+        return vReturn;
     }
 
     @Override
     protected void setItems(NonNullList<ItemStack> nonNullList) {
-        for (int i = 0;i < nonNullList.size();i++){
+        for (int i = 0; i < nonNullList.size(); i++) {
             try {
-                setItem(i,nonNullList.get(i));
-            } catch (Exception ignored) {}
+                setItem(i, nonNullList.get(i));
+            } catch (Exception ignored) {
+            }
         }
     }
 
@@ -97,26 +100,26 @@ public class ItemPortBlockEntity extends RandomizableContainerBlockEntity implem
                 tag.getInt("yc"),
                 tag.getInt("zc")
         );
-        vInventory.deserializeNBT(registries,tag.getCompound("Inventory"));
+        vInventory.deserializeNBT(registries, tag.getCompound("Inventory"));
     }
 
     public void drops() {
         SimpleContainer inventory = new SimpleContainer(vSize);
-        for (int i = 0; i< vSize; i++){
-            inventory.setItem(i,vInventory.getStackInSlot(i));
+        for (int i = 0; i < vSize; i++) {
+            inventory.setItem(i, vInventory.getStackInSlot(i));
         }
-        Containers.dropContents(this.level,this.worldPosition,inventory);
+        Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
-    public int getContainerSize(){
+    public int getContainerSize() {
         return vSize;
     }
 
-    public ItemStack getItem(int pIndex){
+    public ItemStack getItem(int pIndex) {
         return vInventory.getStackInSlot(pIndex);
     }
 
-    public void setItem(int pIndex,ItemStack pStack){
+    public void setItem(int pIndex, ItemStack pStack) {
         vInventory.setStackInSlot(pIndex, pStack);
     }
 

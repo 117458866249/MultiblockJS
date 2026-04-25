@@ -5,25 +5,32 @@ import com.qwq117458866249.multiblockjs.Utils;
 import dev.latvian.mods.kubejs.block.BlockBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
 import net.neoforged.fml.loading.FMLPaths;
 
 import java.nio.file.Files;
 
 public class ControllerKubeBlock extends BlockBuilder {
+    public RenderShape vShape = RenderShape.MODEL;
+
+    public void setRenderShape(RenderShape pShape) {
+        this.vShape = pShape;
+    }
+
     public ControllerKubeBlock(ResourceLocation id) {
         super(id);
     }
 
     @Override
     public Block createObject() {
-        ControllerBlock vBlock = new ControllerBlock(this.createProperties());
-        MultiblockJS.CONTROLLER_BLOCKS.put(this.id,vBlock);
+        ControllerBlock vBlock = new ControllerBlock(this.createProperties(), vShape);
+        MultiblockJS.CONTROLLER_BLOCKS.put(this.id, vBlock);
 
         String[] vNsPath = {
                 this.id.getNamespace(),
                 this.id.getPath()
         };
-        if (!Files.exists(FMLPaths.GAMEDIR.get().resolve("kubejs/assets/" + vNsPath[0] + "/blockstates/"+vNsPath[1]+".json"))) {
+        if (!Files.exists(FMLPaths.GAMEDIR.get().resolve("kubejs/assets/" + vNsPath[0] + "/blockstates/" + vNsPath[1] + ".json"))) {
             try {
                 Utils.writeToGameDir("kubejs/assets/" + vNsPath[0] + "/blockstates/" + vNsPath[1] + ".json", getBlockStateJson(vNsPath[0], vNsPath[1]));
             } catch (Exception e) {
@@ -35,7 +42,7 @@ public class ControllerKubeBlock extends BlockBuilder {
     }
 
     // What the hell is this...
-    private static String getBlockStateJson(String pNamespace,String pPath){
+    private static String getBlockStateJson(String pNamespace, String pPath) {
         return "{\n" +
                 "    \"variants\": {\n" +
                 "        \"facing=north,formed=true,working=false\": {\n" +

@@ -4,6 +4,7 @@ import com.qwq117458866249.multiblockjs.MultiblockJS;
 import com.qwq117458866249.multiblockjs.custom.block.controller.ControllerBlockEntity;
 import com.qwq117458866249.multiblockjs.custom.block.custompartblock.CustomPartBE;
 import com.qwq117458866249.multiblockjs.custom.block.partblock.PartBlockEntity;
+import com.qwq117458866249.multiblockjs.custom.block.port.fluidport.FluidPortBlockEntity;
 import com.qwq117458866249.multiblockjs.custom.block.port.itemport.ItemPortBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
@@ -39,6 +40,11 @@ public class BlockEntityRegister {
             () -> new BlockEntityType<>(ItemPortBlockEntity::new, validItemPortBlocks(), null)
     );
 
+    public static final Supplier<BlockEntityType<FluidPortBlockEntity>> FLUID_PORT_ENTITY = BLOCK_ENTITY_TYPES.register(
+            "fluid_port_entity",
+            () -> new BlockEntityType<>(FluidPortBlockEntity::new, validFluidPortBlocks(), null)
+    );
+
     public static final Supplier<BlockEntityType<CustomPartBE>> CUSTOM_PART_ENTITY = BLOCK_ENTITY_TYPES.register(
             "custom_part_entity",
             () -> new BlockEntityType<>(CustomPartBE::new, validCustomPartBlocks(), null)
@@ -54,6 +60,12 @@ public class BlockEntityRegister {
     private static Set<Block> validItemPortBlocks() {
         Set<Block> validBlocks = new HashSet<>();
         validBlocks.addAll(MultiblockJS.ITEM_PORTS.values());
+        return validBlocks;
+    }
+
+    private static Set<Block> validFluidPortBlocks() {
+        Set<Block> validBlocks = new HashSet<>();
+        validBlocks.addAll(MultiblockJS.FLUID_PORTS.values());
         return validBlocks;
     }
 

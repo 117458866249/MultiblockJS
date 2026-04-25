@@ -22,19 +22,19 @@ public class ReadingRecipes {
     public static List recipes = new ArrayList<>();
 
     @SubscribeEvent
-    public static void getRecipes(PlayerInteractEvent.RightClickBlock event){
-        if (event.getLevel().isClientSide()){
+    public static void getRecipes(PlayerInteractEvent.RightClickBlock event) {
+        if (event.getLevel().isClientSide()) {
             return;
         }
-        if (event.getHand().equals(InteractionHand.OFF_HAND)){
+        if (event.getHand().equals(InteractionHand.OFF_HAND)) {
             return;
         }
-        if (!event.getEntity().getMainHandItem().is(Items.AIR)){
+        if (!event.getEntity().getMainHandItem().is(Items.AIR)) {
             return;
         }
-        if (event.getLevel().getBlockEntity(event.getPos()) instanceof ControllerBlockEntity && event.getLevel().getBlockState(event.getPos()).getValue(ControllerBlock.FORMED)){
+        if (event.getLevel().getBlockEntity(event.getPos()) instanceof ControllerBlockEntity && event.getLevel().getBlockState(event.getPos()).getValue(ControllerBlock.FORMED)) {
             event.getEntity().sendSystemMessage(Component.literal("\n\n§7Available Recipes:"));
-            recipes.forEach(p->{
+            recipes.forEach(p -> {
                 Object[] vRecipe = (Object[]) p;
                 Object[][] vRequirements = (Object[][]) vRecipe[2];
                 int[] vPortPos;
@@ -51,21 +51,30 @@ public class ReadingRecipes {
                                     event.getLevel().getBlockState(event.getPos()).getValue(BlockStateProperties.HORIZONTAL_FACING)
                             );
                             switch ((String) pRequirement[0]) {
-                                case "item" ->
+                                case "item" -> {
                                     event.getEntity().sendSystemMessage(Component.literal("§dItem:§5" + Component.translatable(BuiltInRegistries.ITEM.get(
-                                        ResourceLocation.parse(
-                                                (String) pRequirement[5]
-                                        )
-                                    ).getDescriptionId()).getString() + "§b, Port at §9" +
-                                            Utils.getRelativePos(event.getPos(),vPortPos[0], vPortPos[1], vPortPos[2]).getX() + " " +
-                                            Utils.getRelativePos(event.getPos(),vPortPos[0], vPortPos[1], vPortPos[2]).getY() + " " +
-                                            Utils.getRelativePos(event.getPos(),vPortPos[0], vPortPos[1], vPortPos[2]).getZ() + " "
+                                                    ResourceLocation.parse(
+                                                            (String) pRequirement[5]
+                                                    )
+                                            ).getDescriptionId()).getString() + "*" + ((Number) pRequirement[6]).intValue() + "§b, Port at §9" +
+                                                    Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getX() + " " +
+                                                    Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getY() + " " +
+                                                    Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getZ() + " "
                                     ));
+                                }
                                 case "fe" -> {
 
                                 }
                                 case "fluid" -> {
-
+                                    event.getEntity().sendSystemMessage(Component.literal("§dFluid:§5" + Component.translatable(BuiltInRegistries.FLUID.get(
+                                                    ResourceLocation.parse(
+                                                            (String) pRequirement[5]
+                                                    )
+                                            ).getFluidType().getDescriptionId()).getString() + "*" + ((Number) pRequirement[6]).intValue() + "mb§b, Port at §9" +
+                                                    Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getX() + " " +
+                                                    Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getY() + " " +
+                                                    Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getZ() + " "
+                                    ));
                                 }
                                 case "mek" -> {
 
@@ -87,21 +96,30 @@ public class ReadingRecipes {
                                     event.getLevel().getBlockState(event.getPos()).getValue(BlockStateProperties.HORIZONTAL_FACING)
                             );
                             switch ((String) pRequirement[0]) {
-                                case "item" ->
-                                        event.getEntity().sendSystemMessage(Component.literal("§dItem:§5" + Component.translatable(BuiltInRegistries.ITEM.get(
-                                                        ResourceLocation.parse(
-                                                                (String) pRequirement[5]
-                                                        )
-                                                ).getDescriptionId()).getString() + "§b, Port at §9" +
-                                                Utils.getRelativePos(event.getPos(),vPortPos[0], vPortPos[1], vPortPos[2]).getX() + " " +
-                                                Utils.getRelativePos(event.getPos(),vPortPos[0], vPortPos[1], vPortPos[2]).getY() + " " +
-                                                Utils.getRelativePos(event.getPos(),vPortPos[0], vPortPos[1], vPortPos[2]).getZ() + " "
-                                        ));
+                                case "item" -> {
+                                    event.getEntity().sendSystemMessage(Component.literal("§dItem:§5" + Component.translatable(BuiltInRegistries.ITEM.get(
+                                                    ResourceLocation.parse(
+                                                            (String) pRequirement[5]
+                                                    )
+                                            ).getDescriptionId()).getString() + "*" + ((Number) pRequirement[6]).intValue() + "§b, Port at §9" +
+                                                    Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getX() + " " +
+                                                    Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getY() + " " +
+                                                    Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getZ() + " "
+                                    ));
+                                }
                                 case "fe" -> {
 
                                 }
                                 case "fluid" -> {
-
+                                    event.getEntity().sendSystemMessage(Component.literal("§dFluid:§5" + Component.translatable(BuiltInRegistries.FLUID.get(
+                                                    ResourceLocation.parse(
+                                                            (String) pRequirement[5]
+                                                    )
+                                            ).getFluidType().getDescriptionId()).getString() + "*" + ((Number) pRequirement[6]).intValue() + "mb§b, Port at §9" +
+                                                    Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getX() + " " +
+                                                    Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getY() + " " +
+                                                    Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getZ() + " "
+                                    ));
                                 }
                                 case "mek" -> {
 

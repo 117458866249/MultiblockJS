@@ -31,15 +31,15 @@ public abstract class MultiblockPartBlock extends BaseEntityBlock {
         return this.defaultBlockState().setValue(FORMED, false);
     }
 
-    public void form(BlockState pState, Level pLevel, BlockPos pPos){
+    public void form(BlockState pState, Level pLevel, BlockPos pPos) {
         noOnBreak = true;
-        pLevel.setBlock(pPos,pState.setValue(FORMED,true),3);
+        pLevel.setBlock(pPos, pState.setValue(FORMED, true), 3);
         noOnBreak = false;
     }
 
-    public void unForm(BlockState pState, Level pLevel, BlockPos pPos){
+    public void unForm(BlockState pState, Level pLevel, BlockPos pPos) {
         noOnBreak = true;
-        pLevel.setBlock(pPos,pState.setValue(FORMED,false),3);
+        pLevel.setBlock(pPos, pState.setValue(FORMED, false), 3);
         noOnBreak = false;
     }
 }

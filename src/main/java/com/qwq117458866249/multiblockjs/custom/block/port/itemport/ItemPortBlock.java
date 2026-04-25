@@ -28,7 +28,7 @@ public class ItemPortBlock extends MultiblockPartBlock implements EntityBlock {
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new ItemPortBlockEntity(blockPos,blockState);
+        return new ItemPortBlockEntity(blockPos, blockState);
     }
 
     @Override

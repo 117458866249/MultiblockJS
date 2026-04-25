@@ -1,4 +1,4 @@
-package com.qwq117458866249.multiblockjs.custom.block.port.itemport;
+package com.qwq117458866249.multiblockjs.custom.block.port.fluidport;
 
 import com.qwq117458866249.multiblockjs.MultiblockJS;
 import com.qwq117458866249.multiblockjs.Utils;
@@ -9,8 +9,8 @@ import net.neoforged.fml.loading.FMLPaths;
 
 import java.nio.file.Files;
 
-public class ItemPortKubeBlock extends BlockBuilder {
-    public ItemPortKubeBlock(ResourceLocation id) {
+public class FluidPortKubeBlock extends BlockBuilder {
+    public FluidPortKubeBlock(ResourceLocation id) {
         super(id);
     }
 
@@ -22,9 +22,9 @@ public class ItemPortKubeBlock extends BlockBuilder {
 
     @Override
     public Block createObject() {
-        ItemPortBlock vBlock = new ItemPortBlock(this.createProperties());
-        MultiblockJS.ITEM_PORTS.put(this.id, vBlock);
-        MultiblockJS.ITEM_SIZES.put(vBlock, size);
+        FluidPortBlock vBlock = new FluidPortBlock(this.createProperties());
+        MultiblockJS.FLUID_PORTS.put(this.id, vBlock);
+        MultiblockJS.FLUID_SIZES.put(vBlock, size);
 
         String[] vNsPath = {
                 this.id.getNamespace(),

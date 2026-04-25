@@ -14,7 +14,7 @@ public class BlockRegister {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MultiblockJS.MOD_ID);
 
     public static final DeferredBlock<Block> PART_BLOCK =
-            BLOCKS.register("part_block",()->new PartBlock(BlockBehaviour.Properties.of()
+            BLOCKS.register("part_block", () -> new PartBlock(BlockBehaviour.Properties.of()
                     .sound(SoundType.METAL)
                     .mapColor(MapColor.COLOR_CYAN)
                     .strength(1.2f, 3.2f)

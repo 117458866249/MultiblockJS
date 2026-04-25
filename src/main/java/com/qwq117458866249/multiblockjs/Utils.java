@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Utils {
-    public static BlockPos getRelativePos(BlockPos pos, int x, int y, int z){
+    public static BlockPos getRelativePos(BlockPos pos, int x, int y, int z) {
         return new BlockPos(
                 pos.getX() + x,
                 pos.getY() + y,
@@ -39,16 +39,16 @@ public class Utils {
         );
     }
 
-    public static int[] getDirectionPos(int[] pPos, Direction pDirection){
-        switch (pDirection){
+    public static int[] getDirectionPos(int[] pPos, Direction pDirection) {
+        switch (pDirection) {
             case SOUTH -> {
-                return new int[]{-pPos[0],pPos[1],-pPos[2]};
+                return new int[]{-pPos[0], pPos[1], -pPos[2]};
             }
             case WEST -> {
-                return new int[]{pPos[2],pPos[1],-pPos[0]};
+                return new int[]{pPos[2], pPos[1], -pPos[0]};
             }
             case EAST -> {
-                return new int[]{-pPos[2],pPos[1],pPos[0]};
+                return new int[]{-pPos[2], pPos[1], pPos[0]};
             }
             case null, default -> {
                 return pPos;
@@ -56,15 +56,15 @@ public class Utils {
         }
     }
 
-    public static void formBlock(BlockPos pPos, BlockPos pControllerPos,Level pLevel){
-        if (pLevel.getBlockState(pPos).getBlock() instanceof MultiblockPartBlock vPartBlock){
-            vPartBlock.form(pLevel.getBlockState(pPos),pLevel,pPos);
-            if (pLevel.getBlockEntity(pPos) instanceof MultiblockPartBE vPartBE){
+    public static void formBlock(BlockPos pPos, BlockPos pControllerPos, Level pLevel) {
+        if (pLevel.getBlockState(pPos).getBlock() instanceof MultiblockPartBlock vPartBlock) {
+            vPartBlock.form(pLevel.getBlockState(pPos), pLevel, pPos);
+            if (pLevel.getBlockEntity(pPos) instanceof MultiblockPartBE vPartBE) {
                 vPartBE.setControllerPos(pControllerPos);
             }
         } else {
             PartBlockEntity.formPartEntity(pPos, pLevel);
-            if (pLevel.getBlockEntity(pPos) instanceof MultiblockPartBE vPartBE){
+            if (pLevel.getBlockEntity(pPos) instanceof MultiblockPartBE vPartBE) {
                 vPartBE.setControllerPos(pControllerPos);
             } else {
                 MultiblockJS.LOGGER.error("We DIDN'T form multiblock successfully");
@@ -72,11 +72,11 @@ public class Utils {
         }
     }
 
-    public static void unFormBlock(BlockPos pPos, Level pLevel){
-        if (pLevel.getBlockState(pPos).getBlock() instanceof MultiblockPartBlock vPartBlock){
-            vPartBlock.unForm(pLevel.getBlockState(pPos),pLevel,pPos);
+    public static void unFormBlock(BlockPos pPos, Level pLevel) {
+        if (pLevel.getBlockState(pPos).getBlock() instanceof MultiblockPartBlock vPartBlock) {
+            vPartBlock.unForm(pLevel.getBlockState(pPos), pLevel, pPos);
         }
-        if (pLevel.getBlockEntity(pPos) instanceof MultiblockPartBE vPartBlock){
+        if (pLevel.getBlockEntity(pPos) instanceof MultiblockPartBE vPartBlock) {
             vPartBlock.unFormEntity();
         }
     }
@@ -91,11 +91,11 @@ public class Utils {
     public static String blockStateToString(BlockState pState) {
         String vTemp = BuiltInRegistries.BLOCK.wrapAsHolder(pState.getBlock()).getRegisteredName();
         boolean canReturn = false;
-        for (int i =0;i < pState.toString().length();i++){
-            if (pState.toString().charAt(i) == '['){
+        for (int i = 0; i < pState.toString().length(); i++) {
+            if (pState.toString().charAt(i) == '[') {
                 canReturn = true;
             }
-            if (canReturn){
+            if (canReturn) {
                 vTemp = vTemp + pState.toString().charAt(i);
             }
         }
@@ -110,7 +110,8 @@ public class Utils {
                     true
             );
             return result.blockState();
-        } catch (CommandSyntaxException ignored) {}
+        } catch (CommandSyntaxException ignored) {
+        }
         return Blocks.AIR.defaultBlockState();
     }
 
@@ -126,7 +127,7 @@ public class Utils {
         }
     };
 
-    public static void runCommand(String command, Level level, BlockPos pos){
+    public static void runCommand(String command, Level level, BlockPos pos) {
         CommandSourceStack src = Objects.requireNonNull(
                 level.getServer()
         ).createCommandSourceStack().withSuppressedOutput();

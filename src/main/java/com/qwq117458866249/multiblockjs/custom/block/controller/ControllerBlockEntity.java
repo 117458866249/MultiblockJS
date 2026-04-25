@@ -1,6 +1,7 @@
 package com.qwq117458866249.multiblockjs.custom.block.controller;
 
 import com.qwq117458866249.multiblockjs.Utils;
+import com.qwq117458866249.multiblockjs.custom.block.port.fluidport.FluidPortBlockEntity;
 import com.qwq117458866249.multiblockjs.custom.block.port.itemport.ItemPortBlockEntity;
 import com.qwq117458866249.multiblockjs.register.BlockEntityRegister;
 import net.minecraft.core.BlockPos;
@@ -15,6 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,7 @@ public class ControllerBlockEntity extends BlockEntity {
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
-        tag.putString("structure",vStructure);
+        tag.putString("structure", vStructure);
     }
 
     @Override
@@ -51,15 +53,15 @@ public class ControllerBlockEntity extends BlockEntity {
 
     public static List recipes = new ArrayList<>();
 
-    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, ControllerBlockEntity pEntity){
+    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, ControllerBlockEntity pEntity) {
         pEntity.eTick(pLevel, pPos, pState);
     }
 
-    public void eTick(Level pLevel, BlockPos pPos, BlockState pState){
-        if (pLevel.isClientSide()){
+    public void eTick(Level pLevel, BlockPos pPos, BlockState pState) {
+        if (pLevel.isClientSide()) {
             return;
         }
-        if(!pState.getValue(ControllerBlock.FORMED)){
+        if (!pState.getValue(ControllerBlock.FORMED)) {
             return;
         }
         if (vProgress == 0) {
@@ -81,7 +83,7 @@ public class ControllerBlockEntity extends BlockEntity {
                             );
                             switch ((String) pRequirement[0]) {
                                 case "item" -> {
-                                    if (level.getBlockEntity(Utils.getRelativePos(pPos,vPortPos[0], vPortPos[1], vPortPos[2])) instanceof ItemPortBlockEntity pPort) {
+                                    if (level.getBlockEntity(Utils.getRelativePos(pPos, vPortPos[0], vPortPos[1], vPortPos[2])) instanceof ItemPortBlockEntity pPort) {
                                         pPort.getItems().forEach(pStack -> {
                                             if (
                                                     pStack.is(
@@ -103,7 +105,25 @@ public class ControllerBlockEntity extends BlockEntity {
 
                                 }
                                 case "fluid" -> {
-
+                                    if (level.getBlockEntity(Utils.getRelativePos(pPos, vPortPos[0], vPortPos[1], vPortPos[2])) instanceof FluidPortBlockEntity pPort) {
+                                        if (pPort.vTank.getFluid().getFluid().equals(
+                                                BuiltInRegistries.FLUID.get(
+                                                        ResourceLocation.parse(
+                                                                (String) pRequirement[5]
+                                                        )
+                                                )
+                                        ) &&
+                                                pPort.vTank.getFluidAmount() >= ((Number) pRequirement[6]).intValue()
+                                        ) {
+                                            pPort.vTank.setFluid(
+                                                    new FluidStack(
+                                                            pPort.vTank.getFluid().getFluid(),
+                                                            pPort.vTank.getFluidAmount() - ((Number) pRequirement[6]).intValue()
+                                                    )
+                                            );
+                                            vCanParse.set(true);
+                                        }
+                                    }
                                 }
                                 case "mek" -> {
 
@@ -121,18 +141,18 @@ public class ControllerBlockEntity extends BlockEntity {
             });
         }
 
-        if ((Integer) vParsingRecipe[1] != -1){
+        if ((Integer) vParsingRecipe[1] != -1) {
             vProgress++;
         } else {
             vProgress = 0;
         }
 
-        if (vProgress >= (Integer) vParsingRecipe[1] && (!((Integer) vParsingRecipe[1] == -1))){
+        if (vProgress >= (Integer) vParsingRecipe[1] && (!((Integer) vParsingRecipe[1] == -1))) {
             vProgress = 0;
             Object[][] vRequirements = (Object[][]) vParsingRecipe[2];
             int[] vPortPos;
             AtomicBoolean vIsFinished = new AtomicBoolean(false);
-            for (Object[] pRequirement:vRequirements){
+            for (Object[] pRequirement : vRequirements) {
                 vIsFinished.set(false);
                 if (pRequirement[1].equals("output")) {
                     vPortPos = Utils.getDirectionPos(new int[]{
@@ -144,7 +164,7 @@ public class ControllerBlockEntity extends BlockEntity {
                     );
                     switch ((String) pRequirement[0]) {
                         case "item" -> {
-                            if (level.getBlockEntity(Utils.getRelativePos(pPos,vPortPos[0], vPortPos[1], vPortPos[2])) instanceof ItemPortBlockEntity pPort) {
+                            if (level.getBlockEntity(Utils.getRelativePos(pPos, vPortPos[0], vPortPos[1], vPortPos[2])) instanceof ItemPortBlockEntity pPort) {
                                 pPort.getItems().forEach(pStack -> {
                                     if (pStack.is(
                                             BuiltInRegistries.ITEM.get(
@@ -152,14 +172,14 @@ public class ControllerBlockEntity extends BlockEntity {
                                                             (String) pRequirement[5]
                                                     )
                                             )
-                                    ) && (!vIsFinished.get())){
+                                    ) && (!vIsFinished.get())) {
                                         pStack.grow(((Number) pRequirement[6]).intValue());
                                     }
                                 });
-                                if (!vIsFinished.get()){
-                                    for (int i =0;i < pPort.getContainerSize();i++){
-                                        if ((!vIsFinished.get()) && pPort.getItem(i).isEmpty()){
-                                            pPort.setItem(i,new ItemStack(
+                                if (!vIsFinished.get()) {
+                                    for (int i = 0; i < pPort.getContainerSize(); i++) {
+                                        if ((!vIsFinished.get()) && pPort.getItem(i).isEmpty()) {
+                                            pPort.setItem(i, new ItemStack(
                                                     BuiltInRegistries.ITEM.get(
                                                             ResourceLocation.parse(
                                                                     (String) pRequirement[5]
@@ -178,7 +198,28 @@ public class ControllerBlockEntity extends BlockEntity {
 
                         }
                         case "fluid" -> {
-
+                            if (level.getBlockEntity(Utils.getRelativePos(pPos, vPortPos[0], vPortPos[1], vPortPos[2])) instanceof FluidPortBlockEntity pPort) {
+                                if (pPort.vTank.getFluid().getFluid().equals(
+                                        BuiltInRegistries.FLUID.get(
+                                                ResourceLocation.parse(
+                                                        (String) pRequirement[5]
+                                                )
+                                        )
+                                ) ||
+                                        pPort.vTank.getFluid().equals(FluidStack.EMPTY)
+                                ) {
+                                    pPort.vTank.setFluid(
+                                            new FluidStack(
+                                                    BuiltInRegistries.FLUID.get(
+                                                            ResourceLocation.parse(
+                                                                    (String) pRequirement[5]
+                                                            )
+                                                    ),
+                                                    pPort.vTank.getFluidAmount() + ((Number) pRequirement[6]).intValue()
+                                            )
+                                    );
+                                }
+                            }
                         }
                         case "mek" -> {
 
@@ -187,7 +228,7 @@ public class ControllerBlockEntity extends BlockEntity {
 
                         }
                         case "command" -> {
-                            Utils.runCommand((String) pRequirement[5],level,Utils.getRelativePos(pPos,vPortPos[0], vPortPos[1], vPortPos[2]));
+                            Utils.runCommand((String) pRequirement[5], level, Utils.getRelativePos(pPos, vPortPos[0], vPortPos[1], vPortPos[2]));
                         }
                     }
                 }
@@ -200,20 +241,20 @@ public class ControllerBlockEntity extends BlockEntity {
         }
 
         // State
-        if (vProgress>0){
-            pLevel.setBlock(pPos,pState.setValue(ControllerBlock.WORKING,true),3);
+        if (vProgress > 0) {
+            pLevel.setBlock(pPos, pState.setValue(ControllerBlock.WORKING, true), 3);
             setChanged();
         } else {
-            pLevel.setBlock(pPos,pState.setValue(ControllerBlock.WORKING,false),3);
+            pLevel.setBlock(pPos, pState.setValue(ControllerBlock.WORKING, false), 3);
             setChanged();
         }
-        if (vProgress % 100 == 1){
+        if (vProgress % 100 == 1) {
             level.playSound(
                     null,
                     pPos.getX() + 0.5,
                     pPos.getY() + 1.0,
                     pPos.getZ() + 0.5,
-                    SoundEvent.createVariableRangeEvent(ResourceLocation.parse("multiblockjs:"+vStructure)),
+                    SoundEvent.createVariableRangeEvent(ResourceLocation.parse("multiblockjs:" + vStructure)),
                     SoundSource.VOICE,
                     1,
                     1

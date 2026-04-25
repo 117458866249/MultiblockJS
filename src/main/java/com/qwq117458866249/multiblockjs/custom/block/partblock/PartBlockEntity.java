@@ -13,16 +13,16 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class PartBlockEntity extends BlockEntity implements MultiblockPartBE{
+public class PartBlockEntity extends BlockEntity implements MultiblockPartBE {
     private BlockState vBlockState = Blocks.AIR.defaultBlockState();
-    private BlockPos vControllerPos = new BlockPos(0,0,0);
+    private BlockPos vControllerPos = new BlockPos(0, 0, 0);
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
-        tag.putInt("xc",getControllerPos().getX());
-        tag.putInt("yc",getControllerPos().getY());
-        tag.putInt("zc",getControllerPos().getZ());
+        tag.putInt("xc", getControllerPos().getX());
+        tag.putInt("yc", getControllerPos().getY());
+        tag.putInt("zc", getControllerPos().getZ());
         tag.putString("block", Utils.blockStateToString(vBlockState));
         setChanged();
     }
@@ -53,14 +53,14 @@ public class PartBlockEntity extends BlockEntity implements MultiblockPartBE{
         setChanged();
     }
 
-    public void unFormEntity(){
-        getLevel().setBlock(getBlockPos(),vBlockState,3);
+    public void unFormEntity() {
+        getLevel().setBlock(getBlockPos(), vBlockState, 3);
     }
 
-    public static void formPartEntity(BlockPos pPos, Level pLevel){
+    public static void formPartEntity(BlockPos pPos, Level pLevel) {
         BlockState vState = pLevel.getBlockState(pPos);
-        pLevel.setBlock(pPos, BlockRegister.PART_BLOCK.get().defaultBlockState(),3);
-        if (pLevel.getBlockEntity(pPos) instanceof PartBlockEntity vPartBE){
+        pLevel.setBlock(pPos, BlockRegister.PART_BLOCK.get().defaultBlockState(), 3);
+        if (pLevel.getBlockEntity(pPos) instanceof PartBlockEntity vPartBE) {
             vPartBE.vBlockState = vState;
         }
     }

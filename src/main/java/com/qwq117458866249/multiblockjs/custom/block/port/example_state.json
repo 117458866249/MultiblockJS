@@ -1,7 +1,7 @@
 {
     "variants": {
         "formed=false": {
-            "model": "examplemod:block/test_item_port"
+            "model": "examplemod:block/test_port"
         },
         "formed=true": {
             "model": "multiblockjs:block/empty"

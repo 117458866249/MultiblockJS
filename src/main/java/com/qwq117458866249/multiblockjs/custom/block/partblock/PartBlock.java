@@ -23,7 +23,7 @@ public class PartBlock extends BaseEntityBlock {
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new PartBlockEntity(blockPos,blockState);
+        return new PartBlockEntity(blockPos, blockState);
     }
 
     @Override

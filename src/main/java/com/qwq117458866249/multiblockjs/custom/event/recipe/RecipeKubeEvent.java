@@ -12,13 +12,13 @@ import java.util.List;
 public class RecipeKubeEvent implements KubeEvent {
     public static List recipes = new ArrayList<>();
 
-    public RecipeKubeEvent(){
+    public RecipeKubeEvent() {
         ControllerBlockEntity.recipes = recipes;
         ReadingRecipes.recipes = recipes;
         recipes = new ArrayList<>();
     }
 
-    public void addRecipe(String pBlock,int pTime,Object[]... pRequirement){
+    public void addRecipe(String pBlock, int pTime, Object[]... pRequirement) {
         recipes.add(new Object[]{
                 BuiltInRegistries.BLOCK.get(
                         ResourceLocation.parse(pBlock)

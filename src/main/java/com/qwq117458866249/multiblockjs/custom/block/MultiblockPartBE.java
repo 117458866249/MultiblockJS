@@ -43,7 +43,7 @@ import net.minecraft.core.BlockPos;
         setChanged();
     }
  */
-public interface MultiblockPartBE{
+public interface MultiblockPartBE {
     BlockPos getControllerPos();
 
     void setControllerPos(BlockPos pPos);
