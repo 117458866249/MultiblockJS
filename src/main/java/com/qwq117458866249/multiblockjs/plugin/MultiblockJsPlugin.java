@@ -1,12 +1,12 @@
 package com.qwq117458866249.multiblockjs.plugin;
 
 import com.qwq117458866249.multiblockjs.MultiblockJS;
-import com.qwq117458866249.multiblockjs.custom.block.controller.ControllerKubeBlock;
-import com.qwq117458866249.multiblockjs.custom.block.custompartblock.CustomPartKubeBlock;
-import com.qwq117458866249.multiblockjs.custom.block.port.feport.FEPortKubeBlock;
-import com.qwq117458866249.multiblockjs.custom.block.port.fluidport.FluidPortKubeBlock;
-import com.qwq117458866249.multiblockjs.custom.block.port.itemport.ItemPortKubeBlock;
-import com.qwq117458866249.multiblockjs.custom.event.MjsKubeEvents;
+import com.qwq117458866249.multiblockjs.block.controller.ControllerKubeBlock;
+import com.qwq117458866249.multiblockjs.block.custompartblock.CustomPartKubeBlock;
+import com.qwq117458866249.multiblockjs.block.port.feport.FEPortKubeBlock;
+import com.qwq117458866249.multiblockjs.block.port.fluidport.FluidPortKubeBlock;
+import com.qwq117458866249.multiblockjs.block.port.itemport.ItemPortKubeBlock;
+import com.qwq117458866249.multiblockjs.event.MjsKubeEvents;
 import dev.latvian.mods.kubejs.event.EventGroupRegistry;
 import dev.latvian.mods.kubejs.plugin.KubeJSPlugin;
 import dev.latvian.mods.kubejs.registry.BuilderTypeRegistry;

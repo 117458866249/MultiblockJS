@@ -1,7 +1,7 @@
 package com.qwq117458866249.multiblockjs.register;
 
 import com.qwq117458866249.multiblockjs.MultiblockJS;
-import com.qwq117458866249.multiblockjs.custom.block.partblock.PartBlock;
+import com.qwq117458866249.multiblockjs.block.partblock.PartBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;

@@ -1,12 +1,12 @@
 package com.qwq117458866249.multiblockjs.register;
 
 import com.qwq117458866249.multiblockjs.MultiblockJS;
-import com.qwq117458866249.multiblockjs.custom.block.controller.ControllerBlockEntity;
-import com.qwq117458866249.multiblockjs.custom.block.custompartblock.CustomPartBE;
-import com.qwq117458866249.multiblockjs.custom.block.partblock.PartBlockEntity;
-import com.qwq117458866249.multiblockjs.custom.block.port.feport.FEPortBlockEntity;
-import com.qwq117458866249.multiblockjs.custom.block.port.fluidport.FluidPortBlockEntity;
-import com.qwq117458866249.multiblockjs.custom.block.port.itemport.ItemPortBlockEntity;
+import com.qwq117458866249.multiblockjs.block.controller.ControllerBlockEntity;
+import com.qwq117458866249.multiblockjs.block.custompartblock.CustomPartBE;
+import com.qwq117458866249.multiblockjs.block.partblock.PartBlockEntity;
+import com.qwq117458866249.multiblockjs.block.port.feport.FEPortBlockEntity;
+import com.qwq117458866249.multiblockjs.block.port.fluidport.FluidPortBlockEntity;
+import com.qwq117458866249.multiblockjs.block.port.itemport.ItemPortBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;

@@ -1,9 +1,9 @@
 package com.qwq117458866249.multiblockjs;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.qwq117458866249.multiblockjs.custom.block.MultiblockPartBE;
-import com.qwq117458866249.multiblockjs.custom.block.MultiblockPartBlock;
-import com.qwq117458866249.multiblockjs.custom.block.partblock.PartBlockEntity;
+import com.qwq117458866249.multiblockjs.block.MultiblockPartBE;
+import com.qwq117458866249.multiblockjs.block.MultiblockPartBlock;
+import com.qwq117458866249.multiblockjs.block.partblock.PartBlockEntity;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.blocks.BlockStateParser;
 import net.minecraft.core.BlockPos;
@@ -15,19 +15,13 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.Property;
 import net.neoforged.fml.loading.FMLPaths;
-import net.neoforged.neoforge.common.util.TriState;
 
-import javax.annotation.Nullable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Utils {

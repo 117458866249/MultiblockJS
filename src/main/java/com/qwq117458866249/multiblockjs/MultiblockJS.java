@@ -2,11 +2,11 @@ package com.qwq117458866249.multiblockjs;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import com.qwq117458866249.multiblockjs.custom.block.controller.ControllerBlock;
-import com.qwq117458866249.multiblockjs.custom.block.custompartblock.CustomPartBlock;
-import com.qwq117458866249.multiblockjs.custom.block.port.feport.FEPortBlock;
-import com.qwq117458866249.multiblockjs.custom.block.port.fluidport.FluidPortBlock;
-import com.qwq117458866249.multiblockjs.custom.block.port.itemport.ItemPortBlock;
+import com.qwq117458866249.multiblockjs.block.controller.ControllerBlock;
+import com.qwq117458866249.multiblockjs.block.custompartblock.CustomPartBlock;
+import com.qwq117458866249.multiblockjs.block.port.feport.FEPortBlock;
+import com.qwq117458866249.multiblockjs.block.port.fluidport.FluidPortBlock;
+import com.qwq117458866249.multiblockjs.block.port.itemport.ItemPortBlock;
 import com.qwq117458866249.multiblockjs.register.BlockEntityRegister;
 import com.qwq117458866249.multiblockjs.register.BlockRegister;
 import net.minecraft.resources.ResourceLocation;
