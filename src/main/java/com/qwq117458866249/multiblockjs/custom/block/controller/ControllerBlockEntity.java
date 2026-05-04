@@ -1,6 +1,7 @@
 package com.qwq117458866249.multiblockjs.custom.block.controller;
 
 import com.qwq117458866249.multiblockjs.Utils;
+import com.qwq117458866249.multiblockjs.custom.block.port.feport.FEPortBlockEntity;
 import com.qwq117458866249.multiblockjs.custom.block.port.fluidport.FluidPortBlockEntity;
 import com.qwq117458866249.multiblockjs.custom.block.port.itemport.ItemPortBlockEntity;
 import com.qwq117458866249.multiblockjs.register.BlockEntityRegister;
@@ -96,13 +97,14 @@ public class ControllerBlockEntity extends BlockEntity {
                                                             && (!vCanParse.get())
                                             ) {
                                                 vCanParse.set(true);
-                                                pStack.setCount(pStack.getCount() - ((Number) pRequirement[6]).intValue());
                                             }
                                         });
                                     }
                                 }
                                 case "fe" -> {
-
+                                    if (level.getBlockEntity(Utils.getRelativePos(pPos, vPortPos[0], vPortPos[1], vPortPos[2])) instanceof FEPortBlockEntity pPort) {
+                                        vCanParse.set(pPort.storage.getEnergyStored() >= ((Number) pRequirement[5]).intValue());
+                                    }
                                 }
                                 case "fluid" -> {
                                     if (level.getBlockEntity(Utils.getRelativePos(pPos, vPortPos[0], vPortPos[1], vPortPos[2])) instanceof FluidPortBlockEntity pPort) {
@@ -115,12 +117,6 @@ public class ControllerBlockEntity extends BlockEntity {
                                         ) &&
                                                 pPort.vTank.getFluidAmount() >= ((Number) pRequirement[6]).intValue()
                                         ) {
-                                            pPort.vTank.setFluid(
-                                                    new FluidStack(
-                                                            pPort.vTank.getFluid().getFluid(),
-                                                            pPort.vTank.getFluidAmount() - ((Number) pRequirement[6]).intValue()
-                                                    )
-                                            );
                                             vCanParse.set(true);
                                         }
                                     }
@@ -131,11 +127,77 @@ public class ControllerBlockEntity extends BlockEntity {
                                 case "su" -> {
 
                                 }
+                                case "block" -> {
+                                    vCanParse.set(level.getBlockState(Utils.getRelativePos(pPos, vPortPos[0], vPortPos[1], vPortPos[2])).getBlock().equals(BuiltInRegistries.BLOCK.get(ResourceLocation.parse(pRequirement[5].toString()))));
+                                }
                             }
                         }
                     }
                     if (vCanParse.get()) {
                         vParsingRecipe = vRecipe;
+                        for (Object[] pRequirement : vRequirements) {
+                            if (vCanParse.get() && pRequirement[1].equals("input")) {
+                                vCanParse.set(false);
+                                vPortPos = Utils.getDirectionPos(new int[]{
+                                                ((Number) pRequirement[2]).intValue(),
+                                                ((Number) pRequirement[3]).intValue(),
+                                                ((Number) pRequirement[4]).intValue()
+                                        },
+                                        pState.getValue(BlockStateProperties.HORIZONTAL_FACING)
+                                );
+                                switch ((String) pRequirement[0]) {
+                                    case "item" -> {
+                                        if (level.getBlockEntity(Utils.getRelativePos(pPos, vPortPos[0], vPortPos[1], vPortPos[2])) instanceof ItemPortBlockEntity pPort) {
+                                            pPort.getItems().forEach(pStack -> {
+                                                if (
+                                                        pStack.is(
+                                                                BuiltInRegistries.ITEM.get(
+                                                                        ResourceLocation.parse(
+                                                                                (String) pRequirement[5]
+                                                                        )
+                                                                )
+                                                        ) && pStack.getCount() >= ((Number) pRequirement[6]).intValue()
+                                                                && (!vCanParse.get())
+                                                ) {
+                                                    pStack.setCount(pStack.getCount() - ((Number) pRequirement[6]).intValue());
+                                                }
+                                            });
+                                        }
+                                    }
+                                    case "fe" -> {
+                                        if (level.getBlockEntity(Utils.getRelativePos(pPos, vPortPos[0], vPortPos[1], vPortPos[2])) instanceof FEPortBlockEntity pPort) {
+                                            pPort.storage.extractEnergy(((Number) pRequirement[5]).intValue(), false);
+                                        }
+                                    }
+                                    case "fluid" -> {
+                                        if (level.getBlockEntity(Utils.getRelativePos(pPos, vPortPos[0], vPortPos[1], vPortPos[2])) instanceof FluidPortBlockEntity pPort) {
+                                            if (pPort.vTank.getFluid().getFluid().equals(
+                                                    BuiltInRegistries.FLUID.get(
+                                                            ResourceLocation.parse(
+                                                                    (String) pRequirement[5]
+                                                            )
+                                                    )
+                                            ) &&
+                                                    pPort.vTank.getFluidAmount() >= ((Number) pRequirement[6]).intValue()
+                                            ) {
+                                                pPort.vTank.setFluid(
+                                                        new FluidStack(
+                                                                pPort.vTank.getFluid().getFluid(),
+                                                                pPort.vTank.getFluidAmount() - ((Number) pRequirement[6]).intValue()
+                                                        )
+                                                );
+                                            }
+                                        }
+                                    }
+                                    case "mek" -> {
+
+                                    }
+                                    case "su" -> {
+
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             });
@@ -195,7 +257,9 @@ public class ControllerBlockEntity extends BlockEntity {
                             }
                         }
                         case "fe" -> {
-
+                            if (level.getBlockEntity(Utils.getRelativePos(pPos, vPortPos[0], vPortPos[1], vPortPos[2])) instanceof FEPortBlockEntity pPort) {
+                                pPort.storage.receiveEnergy(((Number) pRequirement[5]).intValue(), false);
+                            }
                         }
                         case "fluid" -> {
                             if (level.getBlockEntity(Utils.getRelativePos(pPos, vPortPos[0], vPortPos[1], vPortPos[2])) instanceof FluidPortBlockEntity pPort) {
@@ -206,7 +270,7 @@ public class ControllerBlockEntity extends BlockEntity {
                                                 )
                                         )
                                 ) ||
-                                        pPort.vTank.getFluid().equals(FluidStack.EMPTY)
+                                        pPort.vTank.getFluidAmount() <= 0
                                 ) {
                                     pPort.vTank.setFluid(
                                             new FluidStack(

@@ -21,5 +21,10 @@ public class HandlerRegister {
                 BlockEntityRegister.FLUID_PORT_ENTITY.get(),
                 (blockEntity, side) -> blockEntity.getFluidHandler()
         );
+        event.registerBlockEntity(
+                Capabilities.EnergyStorage.BLOCK,
+                BlockEntityRegister.FE_PORT_ENTITY.get(),
+                (blockEntity, side) -> blockEntity.storage
+        );
     }
 }

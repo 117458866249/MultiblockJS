@@ -65,7 +65,9 @@ event.create('kubejs:copper_fluid_port','multiblockjs:fluid_port')
 
 ### FE Port
 ```
-Wait for suppporting...
+event.create('kubejs:test_fe_port','multiblockjs:fe_port')
+    .setSize(114514)
+// ".setSize(114514)" means it can fit 114514 FE
 ```
 
 ### Create su Port
@@ -208,7 +210,12 @@ If you want to support some mods’ requirement , open a issue pls
 ### FE requirement
 
 ```
-Wait for suppporting...
+[
+    'fe',                     // Requirement type
+    'input',                  // Input/Output
+    1, 1, 1,                  // Port pos
+    2000                      // FE amount
+]
 ```
 ### Create su requirement
 
@@ -219,6 +226,26 @@ Wait for suppporting...
 
 ```
 Wait for suppporting...
+```
+### Command requirement
+
+```
+[
+    'command',                // Requirement type
+    'output',                 // Only output
+    1, 1, 1,                  // Execute pos
+    'say ciallo~'             // Command
+]
+```
+### Block requirement
+
+```
+[
+    'block',                  // Requirement type
+    'input',                  // Only input
+    1, -1, 1,                 // Block's pos
+    'kubejs:happy_deving'     // Block ID
+]
 ```
 ## Part 05 Others
 

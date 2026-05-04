@@ -43,7 +43,6 @@ public class UnFormMultiBlock {
                 }
             }
             event.setCanceled(true);
-            MultiblockJS.LOGGER.debug(pPart.getControllerPos().toString());
             vUnFormEntity = (ControllerBlockEntity) event.getLevel().getBlockEntity(pPart.getControllerPos());
         } else {
             return;
@@ -93,7 +92,6 @@ public class UnFormMultiBlock {
                         }, event.getLevel().getBlockState(event.getPos()).getValue(BlockStateProperties.HORIZONTAL_FACING));
 
                         if (event.getLevel().getBlockEntity(Utils.getRelativePos(event.getPos(), vPos[0], vPos[1], vPos[2])) instanceof MultiblockPartBE pSinglePart) {
-                            MultiblockJS.LOGGER.debug(pSinglePart.getControllerPos().toString() + " " + event.getPos());
                             if (pSinglePart.getControllerPos().equals(event.getPos())) {
                                 Utils.unFormBlock(Utils.getRelativePos(event.getPos(), vPos[0], vPos[1], vPos[2]), (Level) event.getLevel());
                             }

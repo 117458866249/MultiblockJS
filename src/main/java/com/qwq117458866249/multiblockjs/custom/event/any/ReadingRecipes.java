@@ -42,7 +42,7 @@ public class ReadingRecipes {
                     event.getEntity().sendSystemMessage(Component.literal("§8------------"));
                     for (Object[] pRequirement : vRequirements) {
                         if (pRequirement[1].equals("input")) {
-                            event.getEntity().sendSystemMessage(Component.literal("\n§2Inputs:"));
+                            event.getEntity().sendSystemMessage(Component.literal("§2Input:"));
                             vPortPos = Utils.getDirectionPos(new int[]{
                                             ((Number) pRequirement[2]).intValue(),
                                             ((Number) pRequirement[3]).intValue(),
@@ -63,7 +63,11 @@ public class ReadingRecipes {
                                     ));
                                 }
                                 case "fe" -> {
-
+                                    event.getEntity().sendSystemMessage(Component.literal("§dFE:§5" + ((Number) pRequirement[5]).intValue() + " FE§b, Port at §9" +
+                                            Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getX() + " " +
+                                            Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getY() + " " +
+                                            Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getZ() + " "
+                                    ));
                                 }
                                 case "fluid" -> {
                                     event.getEntity().sendSystemMessage(Component.literal("§dFluid:§5" + Component.translatable(BuiltInRegistries.FLUID.get(
@@ -82,12 +86,23 @@ public class ReadingRecipes {
                                 case "su" -> {
 
                                 }
+                                case "block" -> {
+                                    event.getEntity().sendSystemMessage(Component.literal("§dBlock:§5" + Component.translatable(BuiltInRegistries.BLOCK.get(
+                                                    ResourceLocation.parse(
+                                                            (String) pRequirement[5]
+                                                    )
+                                            ).getDescriptionId()).getString() + "§b,at §9" +
+                                                    Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getX() + " " +
+                                                    Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getY() + " " +
+                                                    Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getZ() + " "
+                                    ));
+                                }
                             }
                         }
                     }
                     for (Object[] pRequirement : vRequirements) {
                         if (pRequirement[1].equals("output")) {
-                            event.getEntity().sendSystemMessage(Component.literal("\n§aOutputs:"));
+                            event.getEntity().sendSystemMessage(Component.literal("§aOutput:"));
                             vPortPos = Utils.getDirectionPos(new int[]{
                                             ((Number) pRequirement[2]).intValue(),
                                             ((Number) pRequirement[3]).intValue(),
@@ -108,7 +123,11 @@ public class ReadingRecipes {
                                     ));
                                 }
                                 case "fe" -> {
-
+                                    event.getEntity().sendSystemMessage(Component.literal("§dFE:§5" + ((Number) pRequirement[5]).intValue() + " FE§b, Port at §9" +
+                                            Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getX() + " " +
+                                            Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getY() + " " +
+                                            Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getZ() + " "
+                                    ));
                                 }
                                 case "fluid" -> {
                                     event.getEntity().sendSystemMessage(Component.literal("§dFluid:§5" + Component.translatable(BuiltInRegistries.FLUID.get(
