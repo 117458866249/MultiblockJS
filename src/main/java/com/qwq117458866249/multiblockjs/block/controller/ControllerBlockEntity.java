@@ -4,6 +4,7 @@ import com.qwq117458866249.multiblockjs.Utils;
 import com.qwq117458866249.multiblockjs.block.port.feport.FEPortBlockEntity;
 import com.qwq117458866249.multiblockjs.block.port.fluidport.FluidPortBlockEntity;
 import com.qwq117458866249.multiblockjs.block.port.itemport.ItemPortBlockEntity;
+import com.qwq117458866249.multiblockjs.block.port.suinputport.SuInputPortBlockEntity;
 import com.qwq117458866249.multiblockjs.register.BlockEntityRegister;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -125,7 +126,9 @@ public class ControllerBlockEntity extends BlockEntity {
 
                                 }
                                 case "su" -> {
-
+                                    if (level.getBlockEntity(Utils.getRelativePos(pPos, vPortPos[0], vPortPos[1], vPortPos[2])) instanceof SuInputPortBlockEntity pPort){
+                                        vCanParse.set(Math.abs(pPort.getSpeed()) >= ((Number)pRequirement[5]).floatValue());
+                                    }
                                 }
                                 case "block" -> {
                                     vCanParse.set(level.getBlockState(Utils.getRelativePos(pPos, vPortPos[0], vPortPos[1], vPortPos[2])).getBlock().equals(BuiltInRegistries.BLOCK.get(ResourceLocation.parse(pRequirement[5].toString()))));

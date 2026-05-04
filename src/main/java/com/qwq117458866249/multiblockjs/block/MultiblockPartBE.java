@@ -16,7 +16,7 @@ import net.minecraft.core.BlockPos;
     }
 
     public void unFormEntity(){
-        ((MultiblockPartBlock)getLevel().getBlockState(getBlockPos()).getBlock()).unForm(
+        ((VanillaMultiblockPartBlock)getLevel().getBlockState(getBlockPos()).getBlock()).unForm(
                 getLevel().getBlockState(getBlockPos()),
                 getLevel(),
                 getBlockPos()

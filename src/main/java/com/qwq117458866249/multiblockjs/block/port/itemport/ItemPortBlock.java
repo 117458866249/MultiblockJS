@@ -1,7 +1,7 @@
 package com.qwq117458866249.multiblockjs.block.port.itemport;
 
 import com.mojang.serialization.MapCodec;
-import com.qwq117458866249.multiblockjs.block.MultiblockPartBlock;
+import com.qwq117458866249.multiblockjs.block.VanillaMultiblockPartBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class ItemPortBlock extends MultiblockPartBlock implements EntityBlock {
+public class ItemPortBlock extends VanillaMultiblockPartBlock implements EntityBlock {
     public ItemPortBlock(Properties properties) {
         super(properties);
     }

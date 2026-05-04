@@ -88,6 +88,20 @@ Use kubejs custom your multiblock!
     ordering="NONE"
     side="BOTH"
 
+[[dependencies.${mod_id}]]
+modId="create"
+type="required"
+versionRange="[6.0.0,6.114514.0)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="create"
+type="required"
+versionRange="[0,114514)"
+ordering="NONE"
+side="BOTH"
+
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares
 # that your mod requires GL version 3.2 or higher. Other features will be added. They are side aware so declaring this won't
 # stop your mod loading on the server for example.

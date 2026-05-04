@@ -1,7 +1,7 @@
 package com.qwq117458866249.multiblockjs.block.port.fluidport;
 
 import com.mojang.serialization.MapCodec;
-import com.qwq117458866249.multiblockjs.block.MultiblockPartBlock;
+import com.qwq117458866249.multiblockjs.block.VanillaMultiblockPartBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class FluidPortBlock extends MultiblockPartBlock {
+public class FluidPortBlock extends VanillaMultiblockPartBlock {
     public FluidPortBlock(Properties properties) {
         super(properties);
     }

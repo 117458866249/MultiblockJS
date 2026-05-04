@@ -10,11 +10,10 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class MultiblockPartBlock extends BaseEntityBlock {
-    public static final BooleanProperty FORMED = BooleanProperty.create("formed");
+public abstract class VanillaMultiblockPartBlock extends BaseEntityBlock implements AllMultiblockPartBlock {
     public boolean noOnBreak = false;
 
-    public MultiblockPartBlock(Properties properties) {
+    public VanillaMultiblockPartBlock(Properties properties) {
         super(properties);
         registerDefaultState(this.stateDefinition.any().setValue(FORMED, false));
     }

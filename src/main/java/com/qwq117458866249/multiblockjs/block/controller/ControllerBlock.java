@@ -1,7 +1,7 @@
 package com.qwq117458866249.multiblockjs.block.controller;
 
 import com.mojang.serialization.MapCodec;
-import com.qwq117458866249.multiblockjs.block.MultiblockPartBlock;
+import com.qwq117458866249.multiblockjs.block.VanillaMultiblockPartBlock;
 import com.qwq117458866249.multiblockjs.register.BlockEntityRegister;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import org.jetbrains.annotations.Nullable;
 
-public class ControllerBlock extends MultiblockPartBlock {
+public class ControllerBlock extends VanillaMultiblockPartBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WORKING = BooleanProperty.create("working");
     public RenderShape shape = RenderShape.MODEL;

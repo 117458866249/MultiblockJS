@@ -2,7 +2,7 @@ package com.qwq117458866249.multiblockjs.event.definition;
 
 import com.qwq117458866249.multiblockjs.MultiblockJS;
 import com.qwq117458866249.multiblockjs.Utils;
-import com.qwq117458866249.multiblockjs.block.MultiblockPartBlock;
+import com.qwq117458866249.multiblockjs.block.AllMultiblockPartBlock;
 import com.qwq117458866249.multiblockjs.block.controller.ControllerBlock;
 import com.qwq117458866249.multiblockjs.block.controller.ControllerBlockEntity;
 import com.qwq117458866249.multiblockjs.event.any.UnFormMultiBlock;
@@ -123,7 +123,7 @@ public class DefinitionKubeEvent implements KubeEvent {
             });
             if (
                     (!vFailSaid[0].equals(Component.literal("1174ovo")))
-                            && (!event.getLevel().getBlockState(event.getPos()).getValue(MultiblockPartBlock.FORMED))
+                            && (!event.getLevel().getBlockState(event.getPos()).getValue(AllMultiblockPartBlock.FORMED))
             ) {
                 event.getEntity().sendSystemMessage(vFailSaid[0]);
             }

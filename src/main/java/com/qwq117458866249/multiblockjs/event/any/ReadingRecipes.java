@@ -84,7 +84,11 @@ public class ReadingRecipes {
 
                                 }
                                 case "su" -> {
-
+                                    event.getEntity().sendSystemMessage(Component.literal("§dCreate Su , §5" + ((Number) pRequirement[5]).intValue() + " is the minimum speed§b, Port at §9" +
+                                            Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getX() + " " +
+                                            Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getY() + " " +
+                                            Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getZ() + " "
+                                    ));
                                 }
                                 case "block" -> {
                                     event.getEntity().sendSystemMessage(Component.literal("§dBlock:§5" + Component.translatable(BuiltInRegistries.BLOCK.get(
@@ -144,7 +148,11 @@ public class ReadingRecipes {
 
                                 }
                                 case "su" -> {
-
+                                    event.getEntity().sendSystemMessage(Component.literal("§dCreate Su , §5" + ((Number) pRequirement[5]).intValue() + " is the output speed§b, Port at §9" +
+                                            Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getX() + " " +
+                                            Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getY() + " " +
+                                            Utils.getRelativePos(event.getPos(), vPortPos[0], vPortPos[1], vPortPos[2]).getZ() + " "
+                                    ));
                                 }
                             }
                         }

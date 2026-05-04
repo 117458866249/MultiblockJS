@@ -2,7 +2,7 @@ package com.qwq117458866249.multiblockjs.block.port.feport;
 
 import com.qwq117458866249.multiblockjs.MultiblockJS;
 import com.qwq117458866249.multiblockjs.block.MultiblockPartBE;
-import com.qwq117458866249.multiblockjs.block.MultiblockPartBlock;
+import com.qwq117458866249.multiblockjs.block.VanillaMultiblockPartBlock;
 import com.qwq117458866249.multiblockjs.register.BlockEntityRegister;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -33,7 +33,7 @@ public class FEPortBlockEntity extends BlockEntity implements MultiblockPartBE {
     }
 
     public void unFormEntity() {
-        ((MultiblockPartBlock) getLevel().getBlockState(getBlockPos()).getBlock()).unForm(
+        ((VanillaMultiblockPartBlock) getLevel().getBlockState(getBlockPos()).getBlock()).unForm(
                 getLevel().getBlockState(getBlockPos()),
                 getLevel(),
                 getBlockPos()

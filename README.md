@@ -71,9 +71,11 @@ event.create('kubejs:test_fe_port','multiblockjs:fe_port')
 // ".setSize(114514)" means it can fit 114514 FE
 ```
 
-### Create su Port
+### Create su input Port
 ```
-Wait for suppporting...
+event.create('kubejs:test_su_port','multiblockjs:su_input_port')
+    .setRequiredStress(32)
+// ".setRequiredStress(32)" means require 32*RPM su
 ```
 
 ### Mekanism chem Port
@@ -221,7 +223,12 @@ If you want to support some mods’ requirement , open a issue pls
 ### Create su requirement
 
 ```
-Wait for suppporting...
+[
+    'su',                     // Requirement type
+    'input',                  // Input/Output
+    1, 0, 0,                  // Port pos
+    32                        // Speed
+]
 ```
 ### Mekanism chem requirement
 

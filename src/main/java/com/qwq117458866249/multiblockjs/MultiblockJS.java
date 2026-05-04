@@ -7,6 +7,7 @@ import com.qwq117458866249.multiblockjs.block.custompartblock.CustomPartBlock;
 import com.qwq117458866249.multiblockjs.block.port.feport.FEPortBlock;
 import com.qwq117458866249.multiblockjs.block.port.fluidport.FluidPortBlock;
 import com.qwq117458866249.multiblockjs.block.port.itemport.ItemPortBlock;
+import com.qwq117458866249.multiblockjs.block.port.suinputport.SuInputPortBlock;
 import com.qwq117458866249.multiblockjs.register.BlockEntityRegister;
 import com.qwq117458866249.multiblockjs.register.BlockRegister;
 import net.minecraft.resources.ResourceLocation;
@@ -33,11 +34,13 @@ public class MultiblockJS {
     public static final BiMap<ResourceLocation, ItemPortBlock> ITEM_PORTS = HashBiMap.create();
     public static final BiMap<ResourceLocation, FluidPortBlock> FLUID_PORTS = HashBiMap.create();
     public static final BiMap<ResourceLocation, FEPortBlock> FE_PORTS = HashBiMap.create();
+    public static final BiMap<ResourceLocation, SuInputPortBlock> SU_INPUT_PORTS = HashBiMap.create();
     public static final BiMap<ResourceLocation, CustomPartBlock> CUSTOM_PART_PORTS = HashBiMap.create();
 
     public static final HashMap<Block, Integer> ITEM_SIZES = new HashMap<>();
     public static final HashMap<Block, Integer> FLUID_SIZES = new HashMap<>();
     public static final HashMap<Block, Integer> FE_SIZES = new HashMap<>();
+    public static final HashMap<Block, Integer> REQUIRED_STRESSES = new HashMap<>();
 
     public MultiblockJS(IEventBus modEventBus, ModContainer modContainer) {
         NeoForge.EVENT_BUS.register(this);

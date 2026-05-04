@@ -2,8 +2,9 @@ package com.qwq117458866249.multiblockjs.event.any;
 
 import com.qwq117458866249.multiblockjs.MultiblockJS;
 import com.qwq117458866249.multiblockjs.Utils;
+import com.qwq117458866249.multiblockjs.block.AllMultiblockPartBlock;
 import com.qwq117458866249.multiblockjs.block.MultiblockPartBE;
-import com.qwq117458866249.multiblockjs.block.MultiblockPartBlock;
+import com.qwq117458866249.multiblockjs.block.VanillaMultiblockPartBlock;
 import com.qwq117458866249.multiblockjs.block.controller.ControllerBlock;
 import com.qwq117458866249.multiblockjs.block.controller.ControllerBlockEntity;
 import com.qwq117458866249.multiblockjs.block.partblock.PartBlock;
@@ -36,8 +37,8 @@ public class UnFormMultiBlock {
             }
         } else if (event.getLevel().getBlockEntity(event.getPos()) instanceof MultiblockPartBE pPart) {
             if (!(event.getLevel().getBlockState(event.getPos()).getBlock() instanceof PartBlock)) {
-                if (event.getLevel().getBlockState(event.getPos()).getBlock() instanceof MultiblockPartBlock) {
-                    if (!event.getLevel().getBlockState(event.getPos()).getValue(MultiblockPartBlock.FORMED)) {
+                if (event.getLevel().getBlockState(event.getPos()).getBlock() instanceof AllMultiblockPartBlock) {
+                    if (!event.getLevel().getBlockState(event.getPos()).getValue(AllMultiblockPartBlock.FORMED)) {
                         return;
                     }
                 }

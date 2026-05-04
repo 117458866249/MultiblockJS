@@ -1,8 +1,9 @@
 package com.qwq117458866249.multiblockjs;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.qwq117458866249.multiblockjs.block.AllMultiblockPartBlock;
 import com.qwq117458866249.multiblockjs.block.MultiblockPartBE;
-import com.qwq117458866249.multiblockjs.block.MultiblockPartBlock;
+import com.qwq117458866249.multiblockjs.block.VanillaMultiblockPartBlock;
 import com.qwq117458866249.multiblockjs.block.partblock.PartBlockEntity;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.blocks.BlockStateParser;
@@ -51,7 +52,7 @@ public class Utils {
     }
 
     public static void formBlock(BlockPos pPos, BlockPos pControllerPos, Level pLevel) {
-        if (pLevel.getBlockState(pPos).getBlock() instanceof MultiblockPartBlock vPartBlock) {
+        if (pLevel.getBlockState(pPos).getBlock() instanceof AllMultiblockPartBlock vPartBlock) {
             vPartBlock.form(pLevel.getBlockState(pPos), pLevel, pPos);
             if (pLevel.getBlockEntity(pPos) instanceof MultiblockPartBE vPartBE) {
                 vPartBE.setControllerPos(pControllerPos);
@@ -67,7 +68,7 @@ public class Utils {
     }
 
     public static void unFormBlock(BlockPos pPos, Level pLevel) {
-        if (pLevel.getBlockState(pPos).getBlock() instanceof MultiblockPartBlock vPartBlock) {
+        if (pLevel.getBlockState(pPos).getBlock() instanceof AllMultiblockPartBlock vPartBlock) {
             vPartBlock.unForm(pLevel.getBlockState(pPos), pLevel, pPos);
         }
         if (pLevel.getBlockEntity(pPos) instanceof MultiblockPartBE vPartBlock) {
