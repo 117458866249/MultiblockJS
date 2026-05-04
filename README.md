@@ -4,7 +4,8 @@ This is a mod that custom multiblock machine
 # How to use MultiblockJS
 ## Part 0 Before start
 We should download these mods:  
-`Rhino`,`KubeJS`,`MultiblockJS`,`ProbeJS`(This can make you code faster)
+`Rhino`,`KubeJS`,`MultiblockJS`,`ProbeJS`(This can make you code faster)  
+If you want other mods' recipe, you'll need `MultiblockJS Create`,`MultiblockJS Mekaniam`, etc.
 
 ## Part 01 Register blocks
 Now register a multiblock controller
