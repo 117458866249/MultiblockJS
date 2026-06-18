@@ -9,7 +9,7 @@ If you want other mods' recipe, you'll need `MultiblockJS Create`,`MultiblockJS 
 
 ## Part 01 Register blocks
 Now register a multiblock controller
-```
+```js
 StartupEvents.registry('block', event => {
     event.create('kubejs:controller','multiblockjs:controller')
         .notSolid()
@@ -18,7 +18,7 @@ StartupEvents.registry('block', event => {
 ```
 If you want to modify its rendershape ( like geckolib )
 Register like this
-```
+```js
 const $RenderShape = Java.loadClass("net.minecraft.world.level.block.RenderShape")
 StartupEvents.registry('block', event => {
     event.create('kubejs:controller','multiblockjs:controller')
@@ -46,7 +46,7 @@ The controller will use this model
 After that , let’s register ports
 
 ### Item port
-```
+```js
 event.create('kubejs:andesite_item_port','multiblockjs:item_port')
     .notSolid()
     .tagBlock('minecraft:mineable/pickaxe')
@@ -56,7 +56,7 @@ event.create('kubejs:andesite_item_port','multiblockjs:item_port')
 ```
 
 ### Fluid port
-```
+```js
 event.create('kubejs:copper_fluid_port','multiblockjs:fluid_port')
     .notSolid()
     .tagBlock('minecraft:mineable/pickaxe')
@@ -65,26 +65,26 @@ event.create('kubejs:copper_fluid_port','multiblockjs:fluid_port')
 ```
 
 ### FE Port
-```
+```js
 event.create('kubejs:test_fe_port','multiblockjs:fe_port')
     .setSize(114514)
 // ".setSize(114514)" means it can fit 114514 FE
 ```
 
 ### Create su input Port
-```
+```js
 event.create('kubejs:test_su_port','multiblockjs:su_input_port')
     .setRequiredStress(32)
 // ".setRequiredStress(32)" means require 32*RPM su
 ```
 
 ### Mekanism chem Port
-```
+```js
 Wait for suppporting...
 ```
 ## Part 02 Multiblock Definition
 Write a MultiblockJS Definition event in server script
-```
+```js
 MjsEvents.definition(event => {
     event.addStructure('glow_calcining_kiln', 'kubejs:controller')
     // first propety is structure name(no dumplicate)
@@ -102,7 +102,7 @@ Build multiblock structure around it
 ![image](https://raw.githubusercontent.com/117458866249/MultiblockJS/refs/heads/main/how2use_images/image18.png "")
 
 Record each part blocks’ blockpos in world and record them like this
-```
+```js
 event.addStructure('glow_calcining_kiln', 'aceii:glow_calcining_kiln_controller', [
     [1, 0, 0, 'minecraft:quartz_block'],
     [-1, 0, 0, 'minecraft:quartz_block'],
@@ -158,7 +158,7 @@ event.create('kubejs:some_block','multiblockjs:custom_part')
 ## Part 03 Recipe
 
 Write event & Add recipe like this
-```
+```js
 MjsEvents.recipe(event => {
     event.addRecipe('aceii:glow_calcining_kiln_controller', 200, [
         [
@@ -180,7 +180,7 @@ MjsEvents.recipe(event => {
 ## Part 04 Requirements
 
 This is a requirement and it can be used in recipe:
-```
+```js
 [
     'item',
     'input',
@@ -192,7 +192,7 @@ I’ll show you all available requirement
 If you want to support some mods’ requirement , open a issue pls
 ### Item reqiurement
 
-```
+```js
 [
     'item',                   // Requirement type
     'input',                  // Input/Output
@@ -202,7 +202,7 @@ If you want to support some mods’ requirement , open a issue pls
 ```
 ### Fluid requirement
 
-```
+```js
 [
     'fluid',                  // Requirement type
     'input',                  // Input/Output
@@ -212,7 +212,7 @@ If you want to support some mods’ requirement , open a issue pls
 ```
 ### FE requirement
 
-```
+```js
 [
     'fe',                     // Requirement type
     'input',                  // Input/Output
@@ -222,7 +222,7 @@ If you want to support some mods’ requirement , open a issue pls
 ```
 ### Create su requirement
 
-```
+```js
 [
     'su',                     // Requirement type
     'input',                  // Input/Output
@@ -232,22 +232,22 @@ If you want to support some mods’ requirement , open a issue pls
 ```
 ### Mekanism chem requirement
 
-```
+```js
 Wait for suppporting...
 ```
 ### Command requirement
 
-```
+```js
 [
     'command',                // Requirement type
     'output',                 // Only output
     1, 1, 1,                  // Execute pos
     'say ciallo~'             // Command
 ]
-```
+```js
 ### Block requirement
 
-```
+```js
 [
     'block',                  // Requirement type
     'input',                  // Only input

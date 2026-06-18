@@ -1,5 +1,6 @@
 package com.qwq117458866249.multiblockjs.block.controller;
 
+import com.qwq117458866249.multiblockjs.MultiblockJS;
 import com.qwq117458866249.multiblockjs.Utils;
 import com.qwq117458866249.multiblockjs.block.port.feport.FEPortBlockEntity;
 import com.qwq117458866249.multiblockjs.block.port.fluidport.FluidPortBlockEntity;
@@ -137,10 +138,10 @@ public class ControllerBlockEntity extends BlockEntity {
                         }
                     }
                     if (vCanParse.get()) {
+                        vCanParse.set(false);
                         vParsingRecipe = vRecipe;
                         for (Object[] pRequirement : vRequirements) {
-                            if (vCanParse.get() && pRequirement[1].equals("input")) {
-                                vCanParse.set(false);
+                            if (pRequirement[1].equals("input")) {
                                 vPortPos = Utils.getDirectionPos(new int[]{
                                                 ((Number) pRequirement[2]).intValue(),
                                                 ((Number) pRequirement[3]).intValue(),
@@ -160,7 +161,6 @@ public class ControllerBlockEntity extends BlockEntity {
                                                                         )
                                                                 )
                                                         ) && pStack.getCount() >= ((Number) pRequirement[6]).intValue()
-                                                                && (!vCanParse.get())
                                                 ) {
                                                     pStack.setCount(pStack.getCount() - ((Number) pRequirement[6]).intValue());
                                                 }
@@ -174,22 +174,12 @@ public class ControllerBlockEntity extends BlockEntity {
                                     }
                                     case "fluid" -> {
                                         if (level.getBlockEntity(Utils.getRelativePos(pPos, vPortPos[0], vPortPos[1], vPortPos[2])) instanceof FluidPortBlockEntity pPort) {
-                                            if (pPort.vTank.getFluid().getFluid().equals(
-                                                    BuiltInRegistries.FLUID.get(
-                                                            ResourceLocation.parse(
-                                                                    (String) pRequirement[5]
-                                                            )
+                                            pPort.vTank.setFluid(
+                                                    new FluidStack(
+                                                            pPort.vTank.getFluid().getFluid(),
+                                                            pPort.vTank.getFluidAmount() - ((Number) pRequirement[6]).intValue()
                                                     )
-                                            ) &&
-                                                    pPort.vTank.getFluidAmount() >= ((Number) pRequirement[6]).intValue()
-                                            ) {
-                                                pPort.vTank.setFluid(
-                                                        new FluidStack(
-                                                                pPort.vTank.getFluid().getFluid(),
-                                                                pPort.vTank.getFluidAmount() - ((Number) pRequirement[6]).intValue()
-                                                        )
-                                                );
-                                            }
+                                            );
                                         }
                                     }
                                     case "mek" -> {
@@ -239,6 +229,7 @@ public class ControllerBlockEntity extends BlockEntity {
                                             )
                                     ) && (!vIsFinished.get())) {
                                         pStack.grow(((Number) pRequirement[6]).intValue());
+                                        vIsFinished.set(true);
                                     }
                                 });
                                 if (!vIsFinished.get()) {
